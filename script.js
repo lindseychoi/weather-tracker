@@ -1,22 +1,27 @@
 
+var currentForecastBox = document.getElementById("current-weather");
 
 //FUNCTIONS////////////////////////////////////////////////////////////////
 
-function storeSearchHistory() {
+function storeSearchHistory(historyValueToStore) {
 
-    console.log("drawSearchHistory is working");
+    console.log("storeSearchHistory is working: "+historyValueToStore);
 
-    const inputBoxValue = document.getElementById("input-box");
-    let previousCities = []; 
-    var searchHistoryBox = document.getElementById("search-history");
-    const cityName = inputBoxValue.value.trim();
-    if (cityName){
-        previousCities.push(cityName);
-        localStorage.setItem("cities", JSON.stringify(previousCities));
-    } else {
-        alert("Information required. Try again.");
+    if (!historyValueToStore) {
+        alert("Enter city, state, country. Try again.");
+        return;
     }
 
+    var searchHistoryKey = "cities";
+    var previousCities = JSON.parse(localStorage.getItem(searchHistoryKey));
+
+    if (!previousCities) {
+        previousCities = [];
+    }
+
+    previousCities.push(historyValueToStore);
+    localStorage.setItem(searchHistoryKey, JSON.stringify(previousCities));
+    console.log("This is the list for " + previousCities);
 }
 
 //the following function will render the search history with clickable previous cities
@@ -27,7 +32,6 @@ function drawSearchHistory() {
 //the following function will render the current weather for the searched city
 function drawCurrentForecast(city_name, date, temp, wind, humidity, uv_index) {
 
-    var currentForecastBox = document.getElementById("current-weather");
     console.log("drawCurrentForecast is working");
 
     //generates the City Name when search is clicked
@@ -79,8 +83,23 @@ function drawFiveDayForecast() {
 //the following function will be performed when seach is clicked (event listener at bottom in the logic portion)
 function search() {
     console.log("i have been clicked");
+    currentForecastBox.innerHTML = "";
     drawCurrentForecast();
-    storeSearchHistory();
+
+    const inputBoxValue = document.getElementById("input-box");
+    const cityName = inputBoxValue.value.trim();
+
+    storeSearchHistory(cityName);
+
+    var previousCities = localStorage.getItem("cities");
+
+    for (let index = 0; index < previousCities.length; index++) {
+        var searchHistoryBox = document.getElementById("search-history");
+        const searchHistory = previousCities[index];
+        const newLi = searchHistoryBox.createElement("li");
+        newLi.textContent = searchHistory;
+        searchHistoryBox.appendChild(newLi);
+    }
 }
 
 //LOGIC////////////////////////////////////////////////////////////////////
