@@ -31,16 +31,16 @@
           <h5 class="card-title">Search for a City:</h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend"></div>
-            <input type="text" class="form-control" placeholder="Enter a city name" aria-describedby="button-addon1">
+            <input type="text" class="form-control" placeholder="Enter a city name" aria-describedby="button-addon1" id="input-box">
           </div>
-          <a href="#" class="btn btn-primary citybtn">Search</a>
+          <button href="#" class="btn btn-primary citybtn" id="search-button">Search</button>
         </div>
       </div>
 
       <!-- search history -->
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">empty</h5>
+          <h5 class="card-title" id="search-history"></h5>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
         <!-- current weather -->
         <div class="card currentweathercard" style="width: 75rem;">
           <div class="card-body">
-            <h5 class="card-title">empty</h5>
+            <h5 class="card-title" id="current-weather"></h5>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
         <!-- five day forecast-->
         <div class="card currentweathercard" style="width: 75rem;">
           <div class="card-body">
-            <h5 class="card-title">empty</h5>
+            <h5 class="card-title" id="five-day-forecast">empty</h5>
           </div>
         </div>
       </div>
