@@ -1,0 +1,22 @@
+.jumbobanner {
+    background-image: linear-gradient(to right, rgb(10, 176, 206) , rgb(0, 255, 221));
+    color:white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.citybtn {
+    display: block;
+    width: 100%;
+    border: none;
+    background-image: linear-gradient(to right, rgb(10, 176, 206) , rgb(0, 255, 221));
+    color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.currentweathercard {
+
+}
