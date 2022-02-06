@@ -1,27 +1,43 @@
 
-var currentForecastBox = document.getElementById("current-weather");
+const currentForecastBox = document.getElementById("current-weather");
+const searchInputBox = document.getElementById("input-box");
+const searchHistoryBox = document.getElementById("search-history");
+
+var searchHistoryKey = "cities";    // key for localstorage to store previous cities searched
 
 //FUNCTIONS////////////////////////////////////////////////////////////////
 
 function storeSearchHistory(historyValueToStore) {
 
-    console.log("storeSearchHistory is working: "+historyValueToStore);
+    console.log("storeSearchHistory is working: " + historyValueToStore);
 
     if (!historyValueToStore) {
         alert("Enter city, state, country. Try again.");
         return;
     }
 
-    var searchHistoryKey = "cities";
+
     var previousCities = JSON.parse(localStorage.getItem(searchHistoryKey));
 
     if (!previousCities) {
         previousCities = [];
     }
 
+    if (previousCities.length >= 1) {
+        if (previousCities.indexOf(historyValueToStore) >= 0) {
+            return
+        }
+    }
+
     previousCities.push(historyValueToStore);
     localStorage.setItem(searchHistoryKey, JSON.stringify(previousCities));
     console.log("This is the list for " + previousCities);
+}
+
+function retrieveSearchHistroy() {
+
+    return JSON.parse(localStorage.getItem(searchHistoryKey));
+
 }
 
 //the following function will render the search history with clickable previous cities
@@ -83,23 +99,62 @@ function drawFiveDayForecast() {
 //the following function will be performed when seach is clicked (event listener at bottom in the logic portion)
 function search() {
     console.log("i have been clicked");
+    const cityName = searchInputBox.value.trim();
+
     currentForecastBox.innerHTML = "";
     drawCurrentForecast();
 
-    const inputBoxValue = document.getElementById("input-box");
-    const cityName = inputBoxValue.value.trim();
+    
 
     storeSearchHistory(cityName);
 
-    var previousCities = localStorage.getItem("cities");
+    searchHistoryBox.innerHTML = "";
+    renderSearchHistoryList();
+
+}
+
+//the following function renders the search history into a list
+function renderSearchHistoryList() {
+
+    var previousCities = retrieveSearchHistroy();
+
+    if (!previousCities) {
+        return
+    }
+
+    var searchHistoryBox = document.getElementById("search-history");
+    var searchHistory;
+    var newButton;
 
     for (let index = 0; index < previousCities.length; index++) {
-        var searchHistoryBox = document.getElementById("search-history");
-        const searchHistory = previousCities[index];
-        const newLi = searchHistoryBox.createElement("li");
-        newLi.textContent = searchHistory;
-        searchHistoryBox.appendChild(newLi);
+        searchHistory = previousCities[index];
+        newButton = document.createElement("button");
+        newButton.textContent = searchHistory;
+        newButton.addEventListener("click", searchCityAgain(searchHistory));
+        searchHistoryBox.appendChild(newButton);
     }
+}
+
+//function to search for the weather and forecast for a previously searched city that is in the search history button list
+function searchCityAgain(searchCriteria) {
+    return function () {
+
+        searchInputBox.value = searchCriteria;
+        search();
+    }
+}
+
+//5 day weather forecast from Open Weather, calls by city name ONLY//needs work...
+function getFiveDayForecast() {
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch("api.openweathermap.org/data/2.5/forecast?q=Denver&appid=61bd5a7935f37e9c18cacd14e8c89bc3", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+
 }
 
 //LOGIC////////////////////////////////////////////////////////////////////
@@ -110,5 +165,9 @@ $(document).ready(function () {
 
     start_btn.addEventListener('click', search);
 
+    renderSearchHistoryList();
+
 });
+
+
 
