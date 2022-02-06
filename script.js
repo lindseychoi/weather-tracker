@@ -66,7 +66,7 @@ function drawCurrentForecast(city_name, date, temp, wind, humidity, uv_index) {
 
     //generates the Temp when search clicked
     const paraTemp = document.createElement("p");
-    const nodeTemp = document.createTextNode("Temp: " + temp);
+    const nodeTemp = document.createTextNode("Temp: " + temp + "F");
     paraTemp.appendChild(nodeTemp);
     document.getElementById("current-weather").appendChild(paraTemp);
 
@@ -78,15 +78,15 @@ function drawCurrentForecast(city_name, date, temp, wind, humidity, uv_index) {
 
     //generates the Humidity when search clicked
     const paraHumidity = document.createElement("p");
-    const nodeHumidity = document.createTextNode("Humidity: " + humidity);
+    const nodeHumidity = document.createTextNode("Humidity: " + humidity + "%");
     paraHumidity.appendChild(nodeHumidity);
     document.getElementById("current-weather").appendChild(paraHumidity);
 
     //generates the uv_index when search clicked
-    const paraUVIndex = document.createElement("p");
-    const nodeUVIndex = document.createTextNode("UV Index: " + uv_index);
-    paraUVIndex.appendChild(nodeUVIndex);
-    document.getElementById("current-weather").appendChild(paraUVIndex);
+    //const paraUVIndex = document.createElement("p");
+    //const nodeUVIndex = document.createTextNode("UV Index: " + uv_index);
+    //paraUVIndex.appendChild(nodeUVIndex);
+    //document.getElementById("current-weather").appendChild(paraUVIndex);
 
 }
 
@@ -99,18 +99,20 @@ function drawFiveDayForecast() {
 }
 
 //the following function will be performed when seach is clicked (event listener at bottom in the logic portion)
-function search() {
+async function search() {
     console.log("i have been clicked");
     const cityName = searchInputBox.value.trim();
-
     currentForecastBox.innerHTML = "";
-    drawCurrentForecast();
 
+
+    var currentData = await getCurrentForecast(cityName);
+    console.log(currentData);
+    drawCurrentForecast(currentData.name, new Date(), currentData.main.temp, currentData.wind.speed, currentData.main.humidity);
     
-
+    
     storeSearchHistory(cityName);
-
     searchHistoryBox.innerHTML = "";
+
     renderSearchHistoryList();
 
 }
@@ -177,7 +179,16 @@ async function getFiveDayForecast(cityName) {
     // return results;
 }
 
-function getCurrentForecast(cityName) {
+async function getCurrentForecast(cityName) {
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + openWeatherAPIKey + "&units=imperial";
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    var results = await fetch(url, requestOptions);
+    return await results.json();
 
     
 }
@@ -190,8 +201,5 @@ $(document).ready(async function () {
     renderSearchHistoryList();
     searchInputBox.value = "Denver";
     search();
-    var data = await getFiveDayForecast("Denver");
-    console.log(data);
-    console.log(data.city);
-    console.log(data.city.name)
+
 });
