@@ -15,6 +15,8 @@
     font-size: 16px;
     cursor: pointer;
     text-align: center;
+    font-size: large;
+    font-weight: bold;
 }
 
 .currentweathercard {

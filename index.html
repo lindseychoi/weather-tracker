@@ -31,7 +31,8 @@
           <h5 class="card-title">Search for a City:</h5>
           <div class="input-group mb-3">
             <div class="input-group-prepend"></div>
-            <input type="text" class="form-control" placeholder="Enter a city name" aria-describedby="button-addon1" id="input-box">
+            <input type="text" class="form-control" placeholder="Enter a city name" aria-describedby="button-addon1"
+              id="input-box">
           </div>
           <button href="#" class="btn btn-primary citybtn" id="search-button">Search</button>
         </div>
@@ -44,7 +45,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- search results column-->
     <div class="col-8">
 
@@ -56,25 +57,67 @@
           </div>
         </div>
       </div>
-
+    </br>
       <div class="row">
         <!-- five day forecast-->
-        <div class="card currentweathercard" style="width: 75rem;">
-          <div class="card-body">
-            <h5 class="card-title" id="five-day-forecast">empty</h5>
+        <div class="col" id="day-0-forecast">
+          <div class="card-header citybtn" id="day-0-date">
+            DATE:
           </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day-0-icon">Icon:</li>
+            <li class="list-group-item" id="day-0-temp">Temp:</li>
+            <li class="list-group-item" id="day-0-wind">Wind:</li>
+            <li class="list-group-item" id="day-0-humidity">Humidity:</li>
+          </ul>
+        </div>
+
+        <div class="col" id="day-1-forecast">
+          <div class="card-header citybtn" id="day-1-date">
+            DATE:
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day-1-icon">Icon:</li>
+            <li class="list-group-item" id="day-1-temp">Temp:</li>
+            <li class="list-group-item" id="day-1-wind">Wind:</li>
+            <li class="list-group-item" id="day-1-humidity">Humidity:</li>
+        </div>
+
+        <div class="col" id="day-2-forecast">
+          <div class="card-header citybtn" id="day-2-date">
+            DATE:
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day-2-icon">Icon:</li>
+            <li class="list-group-item" id="day-2-temp">Temp:</li>
+            <li class="list-group-item" id="day-2-wind">Wind:</li>
+            <li class="list-group-item" id="day-2-humidity">Humidity:</li>
+        </div>
+
+        <div class="col" id="day-3-forecast">
+          <div class="card-header citybtn" id="day-3-date">
+            DATE:
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day-3-icon">Icon:</li>
+            <li class="list-group-item" id="day-3-temp">Temp:</li>
+            <li class="list-group-item" id="day-3-wind">Wind:</li>
+            <li class="list-group-item" id="day-3-humidity">Humidity:</li>
+        </div>
+
+        <div class="col" id="day-4-forecast">
+          <div class="card-header citybtn" id="day-4-date">
+            DATE:
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="day-4-icon">Icon:</li>
+            <li class="list-group-item" id="day-4-temp">Temp:</li>
+            <li class="list-group-item" id="day-4-wind">Wind:</li>
+            <li class="list-group-item" id="day-4-humidity">Humidity:</li>
         </div>
       </div>
-
     </div>
   </div>
-</div>
-
-
-
-
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
