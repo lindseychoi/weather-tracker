@@ -2,6 +2,8 @@
 const currentForecastBox = document.getElementById("current-weather");
 const searchInputBox = document.getElementById("input-box");
 const searchHistoryBox = document.getElementById("search-history");
+const openWeatherAPIKey = "61bd5a7935f37e9c18cacd14e8c89bc3";
+const search_button = document.getElementById('search-button');
 
 var searchHistoryKey = "cities";    // key for localstorage to store previous cities searched
 
@@ -130,6 +132,7 @@ function renderSearchHistoryList() {
         searchHistory = previousCities[index];
         newButton = document.createElement("button");
         newButton.textContent = searchHistory;
+        newButton.className = "citybtn";
         newButton.addEventListener("click", searchCityAgain(searchHistory));
         searchHistoryBox.appendChild(newButton);
     }
@@ -145,29 +148,50 @@ function searchCityAgain(searchCriteria) {
 }
 
 //5 day weather forecast from Open Weather, calls by city name ONLY//needs work...
-function getFiveDayForecast() {
+async function getFiveDayForecast(cityName) {
+
+    var url = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + openWeatherAPIKey;
+
     var requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
 
-    fetch("api.openweathermap.org/data/2.5/forecast?q=Denver&appid=61bd5a7935f37e9c18cacd14e8c89bc3", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+    var results = await fetch(url, requestOptions);
+    return await results.json();
 
+    // fetch(
+    //     url,
+    //     requestOptions
+    // )
+    // .then(function (response) {
+    //     if (response.ok) {
+    //         response.json().then(function (data) {
+    //             console.log(data);
+    //         });
+    //     } else {
+    //         alert('Error: ' + response.statusText);
+    //     }
+    // });
+
+    // return results;
+}
+
+function getCurrentForecast(cityName) {
+
+    
 }
 
 //LOGIC////////////////////////////////////////////////////////////////////
 //VARIABLES/////////////////////////////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(async function () {
 
-    const start_btn = document.getElementById('search-button');
-
-    start_btn.addEventListener('click', search);
-
+    search_button.addEventListener('click', search);
     renderSearchHistoryList();
-
+    searchInputBox.value = "Denver";
+    search();
+    var data = await getFiveDayForecast("Denver");
+    console.log(data);
+    console.log(data.city);
+    console.log(data.city.name)
 });
-
-
-
