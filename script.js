@@ -117,6 +117,7 @@ function drawFiveDayForecast(data) {
     console.log(data);
 
     index=0
+    var baseOpenWeatherImageUrl = "https://openweathermap.org/img/w"
     
     //var formatZeroDate = moment(data[0].dt_txt).format("MM-DD-YYY");
     
@@ -167,6 +168,25 @@ function drawFiveDayForecast(data) {
     dayThreeHumidity.innerHTML = "Humidity: " + data[index+24].main.humidity + "%";
     var dayFourHumidity = document.getElementById("day-4-humidity");
     dayFourHumidity.innerHTML = "Humidity: " + data[index+36].main.humidity + "%";
+
+    //5 day forecast weather icon
+
+    var dayZeroIcon = document.getElementById("day-0-icon");
+    dayZeroIcon.innerHTML = data[index].weather[index].description;
+
+    // var img1 = document.createElement("img");
+    // img1.src = baseOpenWeatherImageUrl + "/" + data[index].weather[index].icon
+    // dayZeroIcon.appendChild(img1)
+
+    var dayOneIcon = document.getElementById("day-1-icon");
+    dayOneIcon.innerHTML = data[index+8].weather[index].description;
+
+    var dayTwoIcon = document.getElementById("day-2-icon");
+    dayTwoIcon.innerHTML = data[index+16].weather[index].description;
+    var dayThreeIcon = document.getElementById("day-3-icon");
+    dayThreeIcon.innerHTML = data[index+24].weather[index].description;
+    var dayFourIcon = document.getElementById("day-4-icon");
+    dayFourIcon.innerHTML = data[index+36].weather[index].description;;
 
     
 
