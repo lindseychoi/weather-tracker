@@ -80,8 +80,10 @@ function drawCurrentForecast(city_name, date, temp, wind, humidity, uv_index) {
     document.getElementById("current-weather").appendChild(paraCity);
 
     //generates the Date when search clicked
+    var dateFormatted = moment(date).format("L");
+
     const paraDate = document.createElement("p");
-    const nodeDate = document.createTextNode("Date: " + date);
+    const nodeDate = document.createTextNode("Date: " + dateFormatted);
     paraDate.appendChild(nodeDate);
     document.getElementById("current-weather").appendChild(paraDate);
 
@@ -123,15 +125,20 @@ function drawFiveDayForecast(data) {
     
     //5 day forecast date information
     var dayZeroDate = document.getElementById("day-0-date");
-    dayZeroDate.innerHTML = data[index].dt_txt;
+    dayZero = data[index].dt;
+    dayZeroDate.innerHTML = moment(new Date(dayZero * 1000)).format("L");
     var dayOneDate = document.getElementById("day-1-date");
-    dayOneDate.innerHTML = data[index+8].dt_txt;
+    dayOne = data[index+8].dt;
+    dayOneDate.innerHTML = moment(new Date(dayOne * 1000)).format("L");
     var dayTwoDate = document.getElementById("day-2-date");
-    dayTwoDate.innerHTML = data[index+16].dt_txt;
+    dayTwo = data[index+16].dt;
+    dayTwoDate.innerHTML = moment(new Date(dayTwo * 1000)).format("L");
     var dayThreeDate = document.getElementById("day-3-date");
-    dayThreeDate.innerHTML = data[index+24].dt_txt;
+    dayThree = data[index+24].dt;
+    dayThreeDate.innerHTML = moment(new Date(dayThree * 1000)).format("L");
     var dayFourDate = document.getElementById("day-4-date");
-    dayFourDate.innerHTML = data[index+36].dt_txt;
+    dayFour = data[index+32].dt;
+    dayFourDate.innerHTML = moment(new Date(dayFour * 1000)).format("L");
 
     //5 day forecast temp information
     var dayZeroTemp = document.getElementById("day-0-temp");
